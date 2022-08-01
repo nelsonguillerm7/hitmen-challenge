@@ -1,0 +1,45 @@
+{% extends 'base/base_list.html' %}
+{% load static %}
+{% block toolbar %}
+    {% if request.user.id == 1 %}
+        <a href="{% url 'auth:hitman_add_managers' %}" class="btn btn-primary font-weight-bolder">
+            <em class="fas fa-plus icon-sm"></em>
+            Add hitman to a manager
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block list %}
+    <!--begin: Datatable-->
+    <div class="table-responsive">
+        <h5 id="table_describe" class="mt-2">List the hitman</h5>
+        <table class="table table-hover" aria-describedby="table_describe">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">NAME</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">MANAGER</th>
+                <th scope="col">STATE</th>
+                <th scope="col">ACTIONS</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <th scope="row">{{ object.pk }}</th>
+                    <td>{{ object.first_name }} {{ object.last_name }}</td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.manager|default_if_none:"--" }}</td>
+                    <td>{{ object.get_state_display }}</td>
+                    <td>
+                        <a href="{% url 'auth:hitman_detail' object.pk %}" title="Detail hitman">
+                            <em class="fas fa-eye"></em>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

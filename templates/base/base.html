@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<!--begin::Head-->
+<head>
+    <meta charset="utf-8"/>
+    <title>:: SPY :: AGENCY</title>
+    <meta name="description" content="Page with empty content"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    {% block css %}
+        {% include "base/css.html" %}
+        <style>
+            .error-list {
+                color: #f75d6fd8;
+                margin-top: .25rem;
+                font-size: .875em;
+            }
+        </style>
+    {% endblock %}
+
+</head>
+<!--end::Head-->
+
+<!--begin::Body-->
+<body id="kt_body"
+      class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+
+<!--begin::Main-->
+
+<div class="d-flex flex-column flex-root">
+    <!--begin::Page-->
+    <div class="d-flex flex-row flex-column-fluid page">
+
+        {% include "base/sidebar.html" %}
+
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+            {% include "base/header.html" %}
+
+            <!--begin::Content-->
+            <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+                {# TODO: REVISAR #}
+                {% include "base/navbar.html" %}
+
+                <!--begin::Entry-->
+                <div class="d-flex flex-column-fluid">
+                    <!--begin::Container-->
+                    <div class="container">
+                        {% for message in messages %}
+                            <em class="d-none toast-message" data-tags="{{ message.tags }}"
+                                data-message="{{ message }}"></em>
+                        {% endfor %}
+                        {% block content %}
+                            <p>Page content goes here...</p>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "base/user_panel.html" %}
+
+
+{% block js %}
+    {% include "base/js.html" %}
+{% endblock %}
+</body>
+<!--end::Body-->
+</html>

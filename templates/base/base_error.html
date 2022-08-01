@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="es" >
+    <!--begin::Head-->
+    <head>
+        <meta charset="utf-8"/>
+        <title>Sim | Error</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        {% include "base/css.html" %}
+    </head>
+    <!--end::Head-->
+
+    <!--begin::Body-->
+    <body  id="kt_body"  class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading"  >
+    	<!--begin::Main-->
+        <div class="d-flex flex-column flex-root">
+            <!--begin::Error-->
+            {% block error %}{% endblock %}
+            <!--end::Error-->
+        </div>
+        <!--end::Main-->
+        {% include "base/js.html" %}
+    </body>
+    <!--end::Body-->
+</html>

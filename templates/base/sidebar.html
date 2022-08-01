@@ -1,0 +1,51 @@
+{% load static %}
+<!--begin::Aside-->
+<div class="aside aside-left  aside-fixed  d-flex flex-column flex-row-auto" id="kt_aside">
+    <!--begin::Brand-->
+    <div class="flex-column-auto brand mt-10" id="kt_brand">
+        <a href="/" class="brand-logo">
+            (SPY AGENCY) :: INTERNATIONAL
+        </a>
+    </div>
+    <!--end::Brand-->
+
+    <!--begin::Aside Menu-->
+    <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
+        <!--begin::Menu Container-->
+        <div id="kt_aside_menu" class="aside-menu mb-10" data-menu-vertical="1" data-menu-scroll="1"
+             data-menu-dropdown-timeout="500">
+            <!--begin::Menu Nav-->
+            <ul class="menu-nav">
+                <li class="menu-section">
+                    <h4 class="menu-text">HITS</h4>
+                    <em class="menu-icon ki ki-bold-more-hor icon-md"></em>
+                </li>
+                <li class="menu-item" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="{% url 'hits:hit_list' %}" class="menu-link menu-toggle">
+                        {% include 'svg/icon.html' %}
+                        <span class="menu-text">HITS</span>
+                    </a>
+                </li>
+                {% if request.user.id == 1 or request.user.subordinates.all %}
+                    <li class="menu-item" aria-haspopup="true" data-menu-toggle="hover">
+                        <a href="{% url 'auth:hitman_list' %}" class="menu-link menu-toggle">
+                            {% include 'svg/icon.html' %}
+                            <span class="menu-text">HITMEN</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="menu-item" aria-haspopup="true" data-menu-toggle="hover">
+                    <a href="{% url 'auth:logout' %}" class="menu-link menu-toggle">
+                        {% include 'svg/icon.html' %}
+                        <span class="menu-text">LOG OUT</span>
+                    </a>
+                </li>
+            </ul>
+            <!--end::Menu Nav-->
+        </div>
+        <!--end::Menu Container-->
+    </div>
+    <!--end::Aside Menu-->
+</div>
+<!--end::Aside-->

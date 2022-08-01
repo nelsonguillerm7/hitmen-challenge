@@ -1,0 +1,56 @@
+{% extends "base/base_list.html" %}
+
+{% block toolbar %}
+    {% if request.user.pk == 1 or request.user.subordinates.all %}
+        <a href="{% url 'hits:hit_bulk' %}" class="btn btn-primary font-weight-bolder ml-2">
+            <em class="fas fa-sync icon-sm"></em>
+            Bulk Reassign
+        </a>
+        <a href="{% url 'hits:hit_create' %}" class="btn btn-primary font-weight-bolder ml-2">
+            <em class="fas fa-plus icon-sm"></em>
+            Create New
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block list %}
+    <!--begin: Datatable-->
+    <div class="table-responsive">
+        <h5 id="hit_describe" class="mt-2">List the Hits</h5>
+        <table class="table table-hover" aria-describedby="hit_describe">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ASSIGNED</th>
+                <th scope="col">CREATOR</th>
+                <th scope="col">TARGET</th>
+                <th scope="col">STATE</th>
+                <th scope="col">ACTIONS</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <th scope="row">{{ object.pk }}</th>
+                    <td>{{ object.assigned }}</td>
+                    <td>{{ object.creator }}</td>
+                    <td>{{ object.target }}</td>
+                    <td>{{ object.get_state_display }}</td>
+                    <td>
+                        <a href="{% url 'hits:hit_detail' object.pk %}" title="Detail">
+                            <em class="fas fa-eye ml-2"></em>
+                        </a>
+                        {% if user.id == 1 or user.subordinates.all %}
+                            {% if object.state == 1 %}
+                                <a href="{% url 'hits:hit_update' object.pk %}" title="Edit">
+                                    <em class="fas fa-edit ml-2"></em>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

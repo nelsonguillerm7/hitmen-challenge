@@ -1,0 +1,41 @@
+{% extends 'base/base_detail.html' %}
+{% load static %}
+{% block toolbar %}
+    <a href="{% url 'auth:hitman_list' %}" class="btn btn-primary font-weight-bolder">
+        <em class="fas fa-arrow-left icon-sm"></em>
+        Back
+    </a>
+    {% for transition in object.get_available_state_transitions %}
+        <a href="#" class="btn btn-{{ transition.custom.color }} change-state ml-2"
+           data-url="{% url 'flows:workflow_transition' transition.custom.app transition.custom.model transition.name object.id %}">
+            {{ transition.custom.verbose }}
+        </a>
+    {% endfor %}
+{% endblock %}
+
+{% block detail %}
+    <div class="row">
+        <div class="col-12">
+            <h5>NAME</h5>
+            <p>{{ object.get_full_name }}</p>
+        </div>
+        <div class="col-12">
+            <h5>EMAIL</h5>
+            <p>{{ object.email }}</p>
+        </div>
+        <div class="col-12">
+            <h5>STATE</h5>
+            <p>{{ object.get_state_display }}</p>
+        </div>
+        {% if object.subordinates.all %}
+            <div class="col-12">
+                <h5>SUBORDINATES</h5>
+                <ul>
+                    {% for subordinate in object.subordinates.all %}
+                        <li>{{ subordinate.get_full_name }} ({{ subordinate.get_state_display }})</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

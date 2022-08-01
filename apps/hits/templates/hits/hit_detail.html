@@ -1,0 +1,39 @@
+{% extends 'base/base_detail.html' %}
+
+{% block toolbar %}
+    <a href="{% url 'hits:hit_list' %}" class="btn btn-primary font-weight-bolder ml-2">
+        <em class="fas fa-arrow-left icon-sm"></em>
+        Back
+    </a>
+    {% for transition in object.get_available_state_transitions %}
+        <a href="#" class="btn btn-{{ transition.custom.color }} change-state ml-2"
+           data-url="{% url 'flows:workflow_transition' transition.custom.app transition.custom.model transition.name object.id %}">
+            {{ transition.custom.verbose }}
+        </a>
+    {% endfor %}
+{% endblock %}
+
+{% block detail %}
+    <div class="row">
+        <div class="col-12">
+            <h5>Assigned</h5>
+            <p>{{ object.assigned }}</p>
+        </div>
+        <div class="col-12">
+            <h5>Target</h5>
+            <p>{{ object.target|default_if_none:"--" }}</p>
+        </div>
+        <div class="col-12">
+            <h5>Description</h5>
+            <p>{{ object.description|default_if_none:"--" }}</p>
+        </div>
+        <div class="col-12">
+            <h5>State</h5>
+            <p>{{ object.get_state_display }}</p>
+        </div>
+        <div class="col-12">
+            <h5>Created by</h5>
+            <p>{{ object.creator.get_full_name }}</p>
+        </div>
+    </div>
+{% endblock %}

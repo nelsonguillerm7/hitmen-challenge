@@ -1,0 +1,21 @@
+{% extends 'login/base.html' %}
+{% load static %}
+
+{% block form %}
+    <div class="card-body">
+        <div class="authent-text">
+            <p>Welcome to SPY!</p>
+            <p>Enter your details to create your account</p>
+        </div>
+        <form class="form g-3 needs-validation" novalidate="" method="POST">
+            {% csrf_token %}
+            {% include 'forms/form.html' with form=form %}
+            <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-primary m-b-xs">Register</button>
+            </div>
+        </form>
+        <div class="authent-login">
+            <p>Already have an account? <a href="{% url 'auth:login' %}">Sign in</a></p>
+        </div>
+    </div>
+{% endblock %}

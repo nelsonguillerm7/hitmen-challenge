@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: hits
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+      - DJANGO_DEBUG=True
+      - DJANGO_SECRET_KEY=secret_key
+      - PG_ENGINE=django.db.backends.postgresql
+      - PG_DB=hitmen
+      - PG_USER=postgres
+      - PG_PASSWORD=postgres
+      - PG_HOST=db
+      - PG_PORT=5432
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=hits
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

@@ -1,0 +1,23 @@
+{% extends "base/base_error.html" %}
+
+{% load static %}
+
+{% block error %}
+<div class="error error-5 d-flex flex-row-fluid bgi-size-cover bgi-position-center" >
+    <!--begin::Content-->
+    <div class="container d-flex flex-row-fluid flex-column justify-content-md-center p-12">
+        <h1 class="error-title font-weight-boldest text-info mt-10 mt-md-0 mb-12">403</h1>
+        <p class="text-danger font-weight-boldest display-4">
+            You do not have authorization.
+        </p>
+        <p class="font-size-h3">
+            You are not authorized to perform this action,</br>
+            please contact the administrator.</br>
+        </p>
+        <div>
+            <a href="/" class="btn btn-success btn-lg font-size-h3 font-weight-bold btn-pill">Back to home</a>
+        </div>
+    </div>
+    <!--end::Content-->
+</div>
+{% endblock %}
